@@ -1,0 +1,313 @@
+<div class="gradientHead pb-1">
+  <nav class="navbar navbar-expand-lg navbar-dark p-3 navBgColor">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img src="/static/assets/images/errgleLogo.svg" class="errgle-logo" />
+      <a class="navbar-brand" href="/">
+        Errgle
+      </a>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active home-nav-headings sdkConfig" href="/keygen/{{sites.0.unique}}">SDK setup
+              and configuration
+            </a>
+          </li>
+        </ul>
+        <div class="links d-flex logged-link">
+          <a class="nav-link" href="#" id="loggedAs">Logged in as: <strong>{{users.email}}</strong></a>
+          <div class="logged-info p-3">
+            <h1>{{users.firstname}} {{users.lastname}}</h1>
+            <span>{{users.email}}</span>
+            <a class="nav-link mt-3" href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="row pe-2">
+        <div class="col mt-5 mb-5">
+          <div class="my-projects">
+            <div class="my-projects-title">
+              <svg viewBox="0 0 16 16" fill="currentColor" height="24px" width="24px">
+                <path
+                  d="M5.43,11.92a.73.73,0,0,1-.53-.22L3,9.82A.75.75,0,0,1,3,8.76L4.9,6.88A.75.75,0,0,1,6,7.94L4.61,9.29,6,10.64A.75.75,0,0,1,6,11.7.74.74,0,0,1,5.43,11.92Z">
+                </path>
+                <path
+                  d="M10.58,11.92a.74.74,0,0,1-.53-.22.75.75,0,0,1,0-1.06L11.4,9.29,10.05,7.94a.75.75,0,0,1,1.06-1.06L13,8.76a.74.74,0,0,1,0,1.06L11.11,11.7A.71.71,0,0,1,10.58,11.92Z">
+                </path>
+                <path
+                  d="M15.26,16H.76A.75.75,0,0,1,0,15.26V.76A.74.74,0,0,1,.76,0H5.12A2.75,2.75,0,0,1,6.77.56L8.51,1.87a1.3,1.3,0,0,0,.75.25h6a.76.76,0,0,1,.75.75V15.26A.76.76,0,0,1,15.26,16ZM1.51,14.51h13V3.62H9.26a2.75,2.75,0,0,1-1.65-.55L5.87,1.76h0a1.3,1.3,0,0,0-.75-.25H1.51Z">
+                </path>
+              </svg>
+              <span>My Projects:</span>
+            </div>
+            <div class="my-projects-new">
+              <a href="/main">Add new</a>
+            </div>
+
+          </div>
+          <select onchange="location = this.value" class="form-select myWebsitesSelect c"
+            aria-label="Default select example" id="MysitesSelect">
+            <option selected class="sites-options">Current Website:
+              {{#if array}}
+              {{sites.0.site_name}}
+              {{else}}
+              None
+              {{/if}}
+            </option>
+            {{#each sites}}
+            <option value="/dashboard/{{_id}}">{{site_name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      {{#unless array}}
+      <h1 class="text-center">{{message}}</h1>
+      {{/unless}}
+      {{#if array}}
+      <div class="row mt-3 mb-3">
+        <div class="col-4 p-4">
+          <div class="d-flex align-items-center justify-content-center flex-column">
+            <h3 class="recordsHeadings">Load Time</h3>
+            <p class="recKep-p">Average time from the initial request to the final byte</p>
+            <div class="shadow-sm bg-body records-keeper flex-column">
+              <div class="recKep-main">{{loadTime}} sec</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 p-4">
+          <div class="d-flex align-items-center justify-content-center flex-column file-size">
+            <h3 class="recordsHeadings">File Size</h3>
+            <p class="recKep-p">Maximum file size of all downloaded files</p>
+            <div class="shadow-sm  bg-body  records-keeper  flex-column">
+              <div class="recKep-main">{{totalFileSize}}</div>
+              <div class="fileSize-btnCon">
+                <span>Show details <i style="margin-left: 5px" class="fas fa-sort-down"></i> </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-4 p-4">
+          <div class="d-flex align-items-center  flex-column">
+            <h3 class="recordsHeadings">Request</h3>
+            <p class="recKep-p">Amount of requests it took to load every resource</p>
+            <div class="shadow-sm  bg-body  records-keeper  flex-column">
+              <div class="recKep-main">{{totalRequests}} reqs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{!-- chart --}}
+      <section class="charts">
+        <div class="container">
+          <div class="charts-inner row d-flex">
+            <div class=" line-chart">
+              <div data-siteid="{{sites.0._id}}" style="width: 100%; height: auto" id="chartdiv"></div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <div class="row p-2 mb-3 mt-5">
+        <div class="col-12 mb-3">
+          <h3 class="issues headingsColor">Issues</h3>
+        </div>
+        <div class="issue-tab col-4 p-3">
+          <div class="chooses">
+            <a href="/dashboard/{{sites.0._id}}">All</a>
+          </div>
+        </div>
+        <div class="issue-tab col-4 p-3">
+          <div class="chooses">
+            <a href="/dashboard/unsolved/{{sites.0._id}}">Unsolved</a>
+          </div>
+        </div>
+        <div class="issue-tab col-4 p-3">
+          <div class="chooses">
+            <a href="/dashboard/solved/{{sites.0._id}}">Solved</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mt-1">
+        <div class="col-12" id="errSrc">
+          <div class="err-head">
+            <div class="error-head error-icon"></div>
+            <div class="error-head error-message">
+              <strong class="headingsColor">Error Message:</strong>
+            </div>
+            <div class="error-head error-filename">
+              <strong class="headingsColor">Error Source:</strong>
+            </div>
+            {{#if error.currentSrc}}
+            <div class="error-head error-filename">
+              <strong class="headingsColor">Error Source:</strong>
+
+            </div>
+            {{/if}}
+            <div class="error-head error-device">
+              <strong class="headingsColor">Device:</strong>
+            </div>
+            <div class="error-head error-time">
+              <strong class="headingsColor">Issued at:</strong>
+            </div>
+            <div class="error-head error-btns">
+            </div>
+          </div>
+          {{#each array}}
+          {{#if is_fixed}}
+          <div class="d-flex errorDivs fixed">
+            <div class="err-block error-icon">
+              <img src="/static/assets/images/tick.svg" alt="">
+            </div>
+            {{#if error.message}}
+            <div class="err-block error-message">
+              <p class="eachError">
+                {{error.message}}
+              </p>
+            </div>
+            {{/if}}
+            {{#if error.filename}}
+            <div class="err-block error-filename">
+              <a class="errSrc" href="{{error.filename}}">{{error.filename}}</a>
+            </div>
+            {{/if}}
+
+            {{#unless error.message}}
+            <div class="err-block error-message">
+              <p class="eachError">
+                No description found
+              </p>
+            </div>
+            {{/unless}}
+
+            {{#if error.currentSrc}}
+            <div class="err-block error-filename">
+              <a class="errSrc" href="{{error.currentSrc}}">{{error.currentSrc}}
+              </a>
+            </div>
+            {{/if}}
+
+
+            <div class="err-block error-device">
+              {{appOS}} <img src="/static/assets/images/{{appOS}}.svg" alt="{{appOS}}">
+            </div>
+            <div class="err-block error-time">
+              <p class="eachError">{{created_at}}</p>
+            </div>
+            <div class="chekbox pt-2 error-btns">
+            </div>
+          </div>
+          {{else}}
+          <div class="d-flex errorDivs">
+            <div class="err-block error-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            {{#if error.message}}
+            <div class="err-block error-message">
+              <p class="eachError">
+                {{error.message}}
+              </p>
+            </div>
+            {{/if}}
+            {{#if error.filename}}
+            <div class="err-block error-filename">
+              <a class="errSrc" href="{{error.filename}}">{{error.filename}}</a>
+            </div>
+            {{/if}}
+
+
+            {{#unless error.message}}
+            <div class="err-block error-message">
+              <p class="eachError">
+                No description found
+              </p>
+            </div>
+            {{/unless}}
+
+            {{#if error.currentSrc}}
+            <div class="err-block error-filename">
+              <a class="errSrc" href="{{error.currentSrc}}">{{error.currentSrc}}
+              </a>
+            </div>
+            {{/if}}
+
+
+            <div class="err-block error-device">
+              <img src="/static/assets/images/{{appOS}}.svg" alt="">
+            </div>
+            <div class="err-block error-time">
+              <p class="eachError">{{created_at}}</p>
+            </div>
+            <div class="chekbox pt-2 error-btns">
+              <form class="me-2 dashboard-btn">
+                <button type="submit" value="{{_id}}" name="resolve" class="error-btn resolve-btn">Mark as
+                  resolved</button>
+              </form>
+
+              <form class="me-2 dashboard-btn dashboard-btn-delete">
+                <button type="submit" value="{{_id}}" name="=delete" class="error-btn delete-btn">Ignore</button>
+              </form>
+            </div>
+          </div>
+          {{/if}}
+
+          {{/each}}
+
+        </div>
+      </div>
+      {{/if}}
+
+    </div>
+  </div>
+
+
+  <div class="chart-popup">
+    <div class="chart-backdrop">
+      <div class="pie-chart">
+        <div data-siteid="{{sites.0._id}}" style="width: 100%; height: 100%" id="piechartdiv"></div>
+        <div class="pie-close">
+          <img src="/static/assets/images/close.svg" class="close-chart" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <a href="/">
+            Errgle
+          </a>
+          <span class="footer-copy">Copyright &copy;2021, Team-2</span>
+        </div>
+
+        <div class="footer-nav">
+          <p>Errgle is a powerful, Error Monitoring tool that gives you actionable insights into errors and crashes
+            impacting your users. Errgle monitors your full tech stack in real-time, from client-side and server-side,
+            to desktop and mobile. Have the peace of mind knowing that Errgle will detect and surface every error,
+            alongside who was affected, where they encountered the issue, as well as other real user insights.</p>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms and Conditions</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>

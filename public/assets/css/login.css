@@ -1,0 +1,62 @@
+.logo-title{
+    font-weight: bolder;
+}
+.login-btn{
+    background-color: #032565;
+    width: 30%;
+    font-weight: bolder;
+    color: white;
+    font-size: 18px;
+}
+
+.login-btn:hover{
+   font-weight: 700;
+   color: white;
+}
+
+.google-btn , .facebook-btn {
+    color: #2c5cb4;
+}
+
+.google-btn:hover , .facebook-btn:hover  {
+    color: #F9EFC1;
+}
+
+.small{
+    text-decoration: none;
+    color: #F9EFC1; 
+}
+
+.small:hover{
+    color: #2c5cb4;
+    font-weight: bold;
+}
+
+/* ALERTS */
+.alert{
+    padding: 0 10px !important;
+    background-color: #ED3065 !important;
+    color: #fff !important;
+    border: none !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.warning-close-btn{
+    font-size: 20px !important;
+    color: #fff !important;
+}
+.alert.success-msg{
+    background-color: #2a4f96 !important;
+}
+
+/* FORGOT PASSWORD STYLE */
+
+
+.forget-container {
+    border: 1px solid gray;
+}
+
+
+

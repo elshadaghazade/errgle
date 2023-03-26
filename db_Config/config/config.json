@@ -1,0 +1,38 @@
+{
+  "development": {
+    "database": {
+      "url": "mongodb://root:bootcamp2021@localhost:27017/errgle?authSource=admin",
+      "options": {
+        "useCreateIndex": true,
+        "useNewUrlParser": true,
+        "useUnifiedTopology": true,
+        "useFindAndModify": true
+      }
+    }
+  },
+  "test": {
+    "database": {
+      "url": "mongodb+srv://root:bootcamp2021@cluster0.4hexy.mongodb.net/all?retryWrites=true&w=majority",
+      "options": {
+        "useCreateIndex": true,
+        "useNewUrlParser": true,
+        "useUnifiedTopology": true
+      }
+    }
+  },
+  "production": {
+    "database": {
+      "protocol": "mongodb",
+      "username": "root",
+      "password": "bootcamp2021",
+      "name": "errgle",
+      "host": "localhost",
+      "port": "27017",
+      "options": {
+        "useCreateIndex": true,
+        "useNewUrlParser": true,
+        "useUnifiedTopology": true
+      }
+    }
+  }
+}

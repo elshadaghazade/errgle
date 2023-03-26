@@ -1,0 +1,35 @@
+.signup-input {
+    width: 460px;
+    height: 48px;
+}
+.register-btn {
+    /* background-color:#2B3B67; */
+    background-color: #032565;
+    color: #F9EFC1;
+}
+
+.register-btn:hover {
+    color: white;
+}
+
+.border-form {
+    background-color: #1D1625;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right,  #2B3B67,  #889fdd);
+    color: rgb(184, 177, 177);
+    /* border-image-source: linear-gradient(to right,   #B54368 , #daa4b8); */
+}
+
+.border-form::placeholder  {
+    color: rgb(184, 177, 177);
+}
+
+.border-form:focus  {
+    color: rgb(184, 177, 177);
+    background-color: #1D1625;
+}
+
+
+.page-name {
+    color: #F9EFC1;
+} 

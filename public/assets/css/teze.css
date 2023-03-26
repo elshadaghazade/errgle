@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+.logoaddSites{
+  text-align: center;
+}
+
+.logo-cubic {
+  height: 90px;
+  width: 90px;
+  background-color:hsla(235, 91%, 97%, 0.37);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.logo-circle{
+  border-radius: 50% ;
+  text-align: center;
+}
+.small_cubics{
+  display: flex;
+  flex-direction: column;
+  text-overflow: ellipsis;
+}
+
+.site-delete-btn{
+border-radius: 5px !important; 
+background-color: #0B7DDA;
+/* cehrayinin kodu -->  ED3065 */
+color: #fff;
+padding: 5px;
+border: none;
+}
+
+.fa-trash-alt{
+margin-right: 5px;
+}
+
+.small_cubics>p{
+  color:white;
+  max-width: 90px; 
+}
+
+.logo-puzzle{
+  font-size: 30px !important;
+}
+
+/* .logos-container{
+  display: flex !important;
+  justify-content: space-between; 
+} */
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  float: left;
+  width: 90%;
+  background: hsla(235, 91%, 97%, 0.37);
+  
+}
+
+form.example input::placeholder {
+    color: lightgray;
+    font-weight: 400;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 10%;
+  padding: 14.5px;
+  background: #2196F3;
+  color: lightgray;
+  font-size: 25px;
+  border: 1px solid grey;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.sdkConfig{
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(237,48,101,0.8), rgba(65,98,173, 0.8), rgba(80,187,117,0.8)) !important;
+  transition: all .3s ease-in-out;
+  margin-left: 15px;
+}
+
+.sdkConfig:hover{
+color: #fff !important;
+}
+
+.navBgColor{
+background-color: #1D1625;
+}
+
+.cubics-main-div{
+  margin-bottom: 50px;
+}

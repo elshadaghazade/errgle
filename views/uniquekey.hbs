@@ -1,0 +1,69 @@
+<section class="main">
+    <div class="gradientHead pb-1">
+        <nav class="navbar navbar-expand-lg navbar-dark p-3 navBgColor">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <img src="/static/assets/images/errgleLogo.svg" class="errgle-logo" />
+                <a class="navbar-brand" href="/">
+                    Errgle
+                </a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active home-nav-headings keygen-dashboard-btn" href="/dashboard/{{site}}"><i class="fas fa-forward"></i>Dashboard</a>
+                        </li>
+                    </ul>
+                    <div class="links d-flex logged-link">
+                        <a class="nav-link" href="#" id="loggedAs">Logged in as:
+                            <strong>{{user.email}}</strong></a>
+                        <div class="logged-info p-3">
+                            <h1>{{user.firstname}} {{user.lastname}}</h1>
+                            <span>{{user.email}}</span>
+                            <a class="nav-link mt-3" href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="sdk-key">
+            <div class="wrap">
+                <div id="api-code">
+                    <pre>{{code}}</pre>
+                </div>
+                <a id="copyToClip" onclick="CopyToClipboard('api-code')" class="clipboard-icon"><i
+                        class="fas fa-paste"></i></a>
+                <span id="clipText">Copy to clipboard</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <a href="/">
+                    Errgle
+                </a>
+                <span class="footer-copy">Copyright &copy;2021, Team-2</span>
+            </div>
+
+            <div class="footer-nav">
+                <p>Errgle is a powerful, Error Monitoring tool that gives you actionable insights into errors and crashes impacting your users. Errgle monitors your full tech stack in real-time, from client-side and server-side, to desktop and mobile. Have the peace of mind knowing that Errgle will detect and surface every error, alongside who was affected, where they encountered the issue, as well as other real user insights.</p>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

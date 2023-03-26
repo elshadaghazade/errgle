@@ -1,0 +1,30 @@
+<div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3">
+        <i class="fas fa-user-plus"></i>
+        Add Site
+      </h1>
+      {{> messages}}
+      <form
+        action="/addsite"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="siteUrl">Site full address</label>
+          <input
+            type="url"
+            id="siteUrl"
+            name="SiteUrl"
+            class="form-control"
+            placeholder="http://example.com"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          Register
+        </button>
+      </form>
+      <p class="lead mt-1"><a href="/dashboard">Return Back</a></p>
+    </div>
+  </div>
+</div>

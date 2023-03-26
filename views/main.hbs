@@ -1,0 +1,116 @@
+<div class="gradientHead pb-1">
+    <nav class="navbar navbar-expand-lg navbar-dark p-3 navBgColor">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img src="/static/assets/images/errgleLogo.svg" class="errgle-logo" />
+            <a class="navbar-brand" href="/">
+                Errgle
+            </a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {{!-- <li class="nav-item">
+                        <a class="nav-link active home-nav-headings sdkConfig" href="/keygen/{{sites.0.unique}}">SDK setup
+                            and configuration
+                        </a>
+                    </li> --}}
+                </ul>
+                <div class="links d-flex logged-link">
+                    <a class="nav-link" href="#" id="loggedAs">Logged in as: <strong>{{users.email}}</strong></a>
+                    <div class="logged-info p-3">
+                        <h1>{{users.firstname}} {{users.lastname}}</h1>
+                        <span>{{users.email}}</span>
+                        <a class="nav-link mt-3" href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12 p-3 logoaddSites mt-5">
+            <h1>
+                <pre>E R R G L E</pre>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form class="example" action="/addsite" method="POST">
+                <input type="text" name="SiteUrl" placeholder="Add your site. Example http://example.com" name="search">
+                <button type="submit"><i class="fas fa-plus"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="d-flex cubics-main-div">
+                {{#each websites}}
+                    <div class="small_cubics me-5">
+                        <div class="logo-cubic">
+                            {{#if site_icon}}
+                                <div class="logo-circle p-3"><a href="/dashboard/{{_id}}"><img src="{{site_url}}{{site_icon}}" alt="site_favicon"></a></div>
+                                {{else}}
+                                <div class="logo-circle p-3"><a href="/dashboard/{{_id}}"><i class="fas fa-puzzle-piece logo-puzzle"></i></a></div>
+                            {{/if}}
+                        </div>
+                        <p class="text-truncate">{{site_name}}</p>
+                        <form action="/main/remove" method="POST">
+                            <button class="site-delete-btn" value={{_id}} name="remove"><i class="far fa-trash-alt"></i>Remove</button>
+                        </form>
+                    </div>
+                {{/each}}
+
+              <img src="{{link}}" alt="">
+            </div> 
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <a href="/">
+                    Errgle
+                </a>
+                <span class="footer-copy">Copyright &copy;2021, Team-2</span>
+            </div>
+
+            <div class="footer-nav">
+                <p>Errgle is a powerful, Error Monitoring tool that gives you actionable insights into errors and crashes impacting your users. Errgle monitors your full tech stack in real-time, from client-side and server-side, to desktop and mobile. Have the peace of mind knowing that Errgle will detect and surface every error, alongside who was affected, where they encountered the issue, as well as other real user insights.</p>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+{{!-- 
+        {{#each smth}}
+            <div class="small_cubics">
+                <div class="logo-cubic">
+                    {{#unless}}
+                        <div class="logo-circle p-3"><i class="fas fa-puzzle-piece logo-puzzle"></i></div>
+                    {{/unless}}
+                    {{#if}}
+                        <div class="logo-circle p-3">{{}}</div>
+                    {{/if}}
+                </div>
+                <p>{{sitetittle}}</p>
+            </div>
+        {{/each}} --}}

@@ -1,0 +1,63 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center align-items-center mt-3 p-3">
+      <div class="mt-3 page-name">
+        <h1>
+          <pre>CREATE AN ACCOUNT</pre>
+        </h1>
+      </div>
+    </div>
+
+    <div class="col-12 p-3">
+      <div class="row">
+        <form class="user" method="POST" action="/signup">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">{{> messages}}</div>
+        </div>
+          <div class="form-group row p-3 d-flex justify-content-center align-items-center flex-column">
+            <div class="col-sm-12 signup-input mb-2">
+              <input type="text" name="firstname" class="form-control form-control-user mb-4 border-form p-2"
+                id="exampleFirstName" placeholder="First Name" />
+            </div>
+            <div class="col-sm-12 signup-input mb-2">
+              <input type="text" name="lastname" class="form-control form-control-user mb-4 border-form p-2"
+                id="exampleLastName" placeholder="Last Name" />
+            </div>
+            <div class="col-sm-12 signup-input mb-2">
+              <input type="email" name="email" class="form-control form-control-user mb-4 border-form p-2"
+                id="exampleInputEmail" placeholder="Email Address" />
+            </div>
+            <div class="col-sm-12  signup-input mb-2">
+              <input type="password" name="password" class="form-control form-control-user mb-4 border-form p-2"
+                id="exampleInputPassword" placeholder="Password" />
+            </div>
+            <div class="col-sm-12 signup-input mb-2">
+              <input type="password" name="password2" class="form-control form-control-user mb-4 border-form p-2"
+                id="exampleRepeatPassword" placeholder="Repeat Password" />
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
+              <input type="submit" value="Register" class="btn register-btn" />
+            </div>
+            {{!-- <div class="col-sm-12 signup-input">  <hr />  </div>
+            <div class="d-flex justify-content-center align-items-center mt-2">
+              <a href="index.html" class="btn google-btn ">
+                <i class="fab fa-google fa-fw"></i>
+                Register with Google
+              </a>
+              <a href="index.html" class="btn facebook-btn">
+                <i class="fab fa-facebook-f fa-fw"></i>
+                Register with Facebook
+              </a>
+            </div> --}}
+          </div>
+
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
