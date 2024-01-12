@@ -146,6 +146,9 @@
           <div class="err-head">
             <div class="error-head error-icon"></div>
             <div class="error-head error-message">
+              <strong class="headingsColor">Page:</strong>
+            </div>
+            <div class="error-head error-message">
               <strong class="headingsColor">Error Message:</strong>
             </div>
             <div class="error-head error-filename">
@@ -172,6 +175,7 @@
             <div class="err-block error-icon">
               <img src="/static/assets/images/tick.svg" alt="">
             </div>
+
             {{#if error.message}}
             <div class="err-block error-message">
               <p class="eachError">
@@ -188,7 +192,7 @@
             {{#unless error.message}}
             <div class="err-block error-message">
               <p class="eachError">
-                No description found
+                Empty error message
               </p>
             </div>
             {{/unless}}
@@ -215,6 +219,11 @@
             <div class="err-block error-icon">
               <i class="fas fa-exclamation-triangle"></i>
             </div>
+            <div class="err-block error-message">
+              <p class="eachError">
+                {{error.filename}}
+              </p>
+            </div>
             {{#if error.message}}
             <div class="err-block error-message">
               <p class="eachError">
@@ -224,7 +233,7 @@
             {{/if}}
             {{#if error.filename}}
             <div class="err-block error-filename">
-              <a class="errSrc" href="{{error.filename}}">{{error.filename}}</a>
+              <a class="errSrc" href="{{error.filename}}">{{error.filename}}:{{error.lineno}}:{{error.colno}}</a>
             </div>
             {{/if}}
 
@@ -232,7 +241,7 @@
             {{#unless error.message}}
             <div class="err-block error-message">
               <p class="eachError">
-                No description found
+                Empty error message
               </p>
             </div>
             {{/unless}}
@@ -293,7 +302,7 @@
           <a href="/">
             Errgle
           </a>
-          <span class="footer-copy">Copyright &copy;2021, Team-2</span>
+          <span class="footer-copy">Copyright &copy;2021</span>
         </div>
 
         <div class="footer-nav">

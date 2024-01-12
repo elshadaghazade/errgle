@@ -11,46 +11,47 @@ router.get("/", ensureAuthenticated, function (req, res) {
 });
 
 router.post("/", ensureAuthenticated, async function (req, res) {
+
   const { SiteUrl } = req.body;
 
   var appToken = uuid.v4();
 
   var link;
+
   try {
-    axios.get(SiteUrl).then(async (response) => {
-      var $ = cheerio.load(response.data);
-      if ($('link[rel="icon"]')[0] !== undefined) {
-        link = $('link[rel="icon"]')[0].attribs.href;
-        const result = await Sites.create({
-          site_icon: link,
-          site_name: SiteUrl.split("/")[2],
-          unique: appToken,
-          site_url: SiteUrl,
-          user_id: req.user.id,
-        });
+    const response = await axios.get(SiteUrl);
+    const $ = cheerio.load(response.data);
+    if ($('link[rel="icon"]')[0] !== undefined) {
+      link = $('link[rel="icon"]')[0].attribs.href;
+      const result = await Sites.create({
+        site_icon: link,
+        site_name: SiteUrl.split("/")[2],
+        unique: appToken,
+        site_url: SiteUrl,
+        user_id: req.user.id,
+      });
 
-        if (result) {
-          return res.redirect(`/keygen/${result.unique}`);
-        } else {
-          req.flash("error_msg", "something went wrong");
-          return res.redirect(`/main`);
-        }
+      if (result) {
+        return res.redirect(`/keygen/${result.unique}`);
       } else {
-        const result = await Sites.create({
-          site_name: SiteUrl.split("/")[2],
-          unique: appToken,
-          site_url: SiteUrl,
-          user_id: req.user.id,
-        });
-
-        if (result) {
-          return res.redirect(`/keygen/${result.unique}`);
-        } else {
-          req.flash("error_msg", "something went wrong");
-          return res.redirect(`/main`);
-        }
+        req.flash("error_msg", "something went wrong");
+        return res.redirect(`/main`);
       }
-    });
+    } else {
+      const result = await Sites.create({
+        site_name: SiteUrl.split("/")[2],
+        unique: appToken,
+        site_url: SiteUrl,
+        user_id: req.user.id,
+      });
+
+      if (result) {
+        return res.redirect(`/keygen/${result.unique}`);
+      } else {
+        req.flash("error_msg", "something went wrong");
+        return res.redirect(`/main`);
+      }
+    }
   } catch (error) {
     const result = await Sites.create({
       site_name: SiteUrl.split("/")[2],

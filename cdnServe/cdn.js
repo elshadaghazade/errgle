@@ -1,23 +1,49 @@
-function monitoringStart(config) {
+async function monitoringStart(config) {
   const monitoring = {
-    onError: function (event) {
+    onError: async function (event) {
+
       const error = {};
-      if (event instanceof ErrorEvent) {
+      if (event instanceof ProgressEvent && event.target instanceof XMLHttpRequest) {
         error.error = {
-          colno: event.colno,
-          filename: event.filename,
-          lineno: event.lineno,
-          message: event.message,
-        };
-      } else {
-        error.error = {
-          tagName: event.target.tagName,
-          currentSrc: event.target.currentSrc,
-        };
+          message: "XMLHttpRequest error",
+          filename: window.location.href
+        }
+      } else if (event.type === 'error') {
+        if (event instanceof ErrorEvent) {
+          error.error = {
+            colno: event.colno,
+            filename: event.filename,
+            lineno: event.lineno,
+            message: event.message,
+          };
+        } else {
+          error.error = {
+            tagName: event?.srcElement?.tagName || event.target.tagName,
+            currentSrc: event.target.currentSrc || event.target.src || event.target.href,
+            message: 'resource not found'
+          };
+        }
+      } else if (event.type === 'unhandledrejection') {
+        try {
+          if (event.promise instanceof Promise) {
+            await event.promise;
+          }
+        } catch (err) {
+          if (err?.stack) {
+            error.error = {
+              message: err.stack,
+            }
+          } else {
+            error.error = {
+              message: err.toString()
+            }
+          }
+        }
       }
 
       error.navigator = {
         origin: window.location.origin,
+        url: window.location.href,
         cookieEnabled: window.navigator.cookieEnabled,
         deviceMemory: window.navigator.deviceMemory,
         hardwareConcurrency: window.navigator.hardwareConcurrency,
@@ -33,7 +59,7 @@ function monitoringStart(config) {
         appVersion: window.navigator.appVersion,
         appCodeName: window.navigator.appCodeName,
       };
-      monitoring.post(`https://errgle.elshadaghazade.com/collect/${config.appID}`, error);
+      monitoring.post(`http://localhost:3000/collect/${config.appID}`, error);
     },
     onPerformance: function (event) {
       setTimeout(() => {
@@ -60,25 +86,12 @@ function monitoringStart(config) {
             origin: window.location.origin,
           },
         };
-        monitoring.post(`https://errgle.elshadaghazade.com/collect/${config.appID}`,
+        monitoring.post(`http://localhost:3000/collect/p/${config.appID}`,
           logs
         );
-        console.log(logs);
 
       }, 1000);
     },
-    // get: function (url) {
-    //   var xhttp = new XMLHttpRequest();
-    //   xhttp.onreadystatechange = function () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   };
-    //   xhttp.open("GET", url, true);
-    //   xhttp.send(null);
-    // },
     post: function (url, logs) {
       const http = new XMLHttpRequest();
       http.open("POST", url, true);
@@ -86,7 +99,7 @@ function monitoringStart(config) {
 
       http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status == 200) {
-          console.log("Sent");
+          // console.log("Sent");
         }
       };
       http.send(JSON.stringify(logs));
@@ -94,5 +107,28 @@ function monitoringStart(config) {
   };
 
   window.addEventListener("error", monitoring.onError, { capture: true });
+  window.addEventListener('unhandledrejection', monitoring.onError, { capture: true });
+  window.addEventListener('abort', monitoring.onError, { capture: true });
+  window.addEventListener('invalid', monitoring.onError, { capture: true });
+  window.addEventListener('securitypolicyviolation', monitoring.onError, { capture: true });
+  window.addEventListener('rejectionhandled', monitoring.onError, { capture: true });
   window.addEventListener("load", monitoring.onPerformance, { capture: true });
+
+  (function () {
+    var originalSend = XMLHttpRequest.prototype.send;
+
+    XMLHttpRequest.prototype.send = function () {
+      this.addEventListener('error', function (event) {
+        monitoring.onError(event);
+      });
+
+      this.addEventListener('load', function () {
+        if (this.status >= 400) {
+          monitoring.onError(new ErrorEvent("Http error in Ajax: From", this.responseURL, "got", this.status, " status code"));
+        }
+      });
+
+      originalSend.apply(this, arguments);
+    };
+  })();
 }

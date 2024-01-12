@@ -97,6 +97,7 @@ router.post("/:appId", siteRegistered, async function (req, res) {
 });
 
 router.post("/p/:appId", siteRegistered, async function (req, res) {
+
   try {
     const {
       timing,

@@ -30,6 +30,10 @@ router.get("/:siteId?", ensureAuthenticated, async function (req, res) {
     var exist = await Sites.findOne({
       _id: req.params.siteId,
       user_id: req.user.id,
+    }, {
+      projection: {
+        _id: 1
+      }
     });
     if (exist) {
       var data = await Errors.find({
@@ -37,6 +41,8 @@ router.get("/:siteId?", ensureAuthenticated, async function (req, res) {
         is_visible: true,
       })
         .sort({ created_at: "desc" })
+        .skip(0)
+        .limit(100)
         .exec();
 
       var avgCount = [];
@@ -55,14 +61,18 @@ router.get("/:siteId?", ensureAuthenticated, async function (req, res) {
       }
 
       result = avg / avgCount.length;
-      var result = Math.round(result) / 1000;
+      if (!isNaN(result))
+        result = Math.round(result) / 1000;
+      else
+        result = 0;
+
       try {
         var maximumFileSize = await Performance.findOne({ sites: exist._id })
           .sort("-fileSize.totalLoadTime")
           .exec();
 
-        var totalFileSize = formatBytes(maximumFileSize.fileSize.totalLoadTime);
-        var totalRequests = maximumFileSize.fileSize.totalRequest;
+        var totalFileSize = maximumFileSize?.fileSize?.totalLoadTime ? formatBytes(maximumFileSize?.fileSize?.totalLoadTime) : '0KB';
+        var totalRequests = maximumFileSize?.fileSize?.totalRequest || 0;
       } catch (error) {}
       
     }
